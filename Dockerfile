@@ -5,11 +5,11 @@ ADD *.tgz  /
 Add swoftcli /usr/bin/swoftcli
 ADD composer.phar /usr/bin/composer
 
-RUN	sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
+RUN	sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
 	apk update && \
-	apk add git linux-headers zip libzip-dev libpng-dev openssl-dev autoconf gcc libc-dev libjpeg-turbo-dev freetype-dev make g++ rabbitmq-c-dev libsodium-dev libmcrypt-dev unzip gmp-dev autoconf --no-cache && \
+	apk add git linux-headers zip libzip-dev libpng-dev openssl-dev autoconf gcc libc-dev libjpeg-turbo-dev freetype-dev make g++ rabbitmq-c-dev libsodium-dev libmcrypt-dev unzip gmp-dev autoconf postgresql-dev --no-cache && \
 	docker-php-ext-configure gd --with-jpeg --with-freetype && \
-	docker-php-ext-install pdo_mysql mysqli zip gd sockets gmp pcntl bcmath
+	docker-php-ext-install pdo_mysql pdo_pgsql mysqli zip gd sockets gmp pcntl bcmath
 
 RUN	composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
 	cd /xdebug-3.2.0 && phpize && ./configure && make && make install && \
